@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatAnchor } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { HdWalletMultiButtonComponent } from '@heavy-duty/wallet-adapter-material';
@@ -8,13 +9,13 @@ import { ShyftApiService } from './shyft-api.service';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, HdWalletMultiButtonComponent],
+  imports: [RouterModule, HdWalletMultiButtonComponent, MatAnchor],
   selector: 'solana-bootcamp-root',
   template: `
     <header class="py-8">
       <h1 class="text-5xl text-center mb-4">Welcome to Solana!</h1>
 
-      <div class="flex justify-center">
+      <div class="flex justify-center mb-4">
         <hd-wallet-multi-button></hd-wallet-multi-button>
       </div>
 
@@ -26,6 +27,21 @@ import { ShyftApiService } from './shyft-api.service';
           <p class="text-xl">{{ account()?.balance }}</p>
         </div>
       }
+
+      <nav>
+        <ul class="flex justify-center items-center gap-4">
+          <li>
+            <a [routerLink]="['']" mat-raised-button>Home</a>
+          </li>
+          <li>
+            <a [routerLink]="['settings']" mat-raised-button>Settings</a>
+          </li>
+        </ul>
+      </nav>
+
+      <main>
+        <router-outlet></router-outlet>
+      </main>
     </header>
   `,
 })
