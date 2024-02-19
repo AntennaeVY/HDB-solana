@@ -24,4 +24,25 @@ export class ShyftApiService {
       )
       .pipe(map((res) => res.result));
   }
+
+  getTransactions(publicKey: string | undefined | null) {
+    if (!publicKey) {
+      return of(null);
+    }
+
+    const url = new URL('https://api.shyft.to/sol/v1/transaction/history');
+
+    url.searchParams.set('network', 'mainnet-beta');
+    url.searchParams.set('account', publicKey);
+    url.searchParams.set('tx_num', '5');
+
+    return this._httpClient
+      .get<{ result: { status: string; type: string; timestamp: string }[] }>(
+        url.toString(),
+        {
+          headers: this._headers,
+        },
+      )
+      .pipe(map((response) => response.result));
+  }
 }

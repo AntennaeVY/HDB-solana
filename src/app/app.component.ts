@@ -29,7 +29,7 @@ import { ShyftApiService } from './shyft-api.service';
       }
 
       <nav>
-        <ul class="flex justify-center items-center gap-4">
+        <ul class="flex justify-center items-center gap-4 mb-4">
           <li>
             <a [routerLink]="['']" mat-raised-button>Home</a>
           </li>
