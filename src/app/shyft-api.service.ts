@@ -5,8 +5,16 @@ import { map, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
-  private readonly _headers = { 'x-api-key': 'WorvjLg6fEvfT8bx' }; // for simplicity, but should be proxied
+  private readonly _key = 'WorvjLg6fEvfT8bx';
+  private readonly _headers = { 'x-api-key': this._key }; // for simplicity, but should be proxied
   private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
+
+  getEndpoint() {
+    const url = new URL('https://rpc.shyft.to');
+    url.searchParams.set('api_key', this._key);
+
+    return url.toString();
+  }
 
   getAccount(publicKey: string | undefined | null) {
     if (!publicKey) return of(null);
